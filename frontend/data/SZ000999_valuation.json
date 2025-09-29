@@ -2,8 +2,8 @@
   {
     "symbol": "SZ000999",
     "timestamp": 1759075200000,
-    "current_close": 28.23,
-    "current_pe": 16.877,
+    "current_close": 28.22,
+    "current_pe": 16.8649,
     "avg_pe_5y": 17.47,
     "std_pe_5y": 2.66,
     "pe_percentile_90": 22.02,
@@ -11,10 +11,10 @@
     "pe_valuation": 1.05,
     "net_profit_valuation": 0.86,
     "pe_buy_point": 16.2,
-    "profit_buy_point": 19.78,
+    "profit_buy_point": 19.79,
     "predicted_net_profit": 4251500000.0,
     "profit_date": "2025-09-29",
-    "calculation_date": "2025-09-29 07:43:13",
+    "calculation_date": "2025-09-29 17:47:54",
     "date": "2025-09-29",
     "name": "华润三九",
     "predicted_net_profit_billion": 42.52
