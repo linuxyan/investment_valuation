@@ -296,7 +296,7 @@
 
                 row.innerHTML = `
                     <td>${stock['date'] || '-'}</td>
-                    <td><a href="/investment/history.html?code=${stock['symbol']}">${stock['symbol']}</a></td>
+                    <td><a href="/history_valuation.html?symbol=${stock['symbol']}">${stock['symbol']}</a></td>
                     <td>${stock['name']}</td>
                     <td class="number-cell">${formatNumber(parseFloat(stock['current_close']))}</td>
                     <td class="number-cell">${formatNumber(parseFloat(stock['pe_valuation']))}</td>

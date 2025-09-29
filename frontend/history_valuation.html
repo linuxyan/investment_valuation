@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>股票历史估值走势</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .container {
+            max-width: 1200px;
+        }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin-bottom: 2rem;
+        }
+        .valuation-table {
+            margin-top: 2rem;
+        }
+        .table th {
+            background-color: #f8f9fa;
+        }
+        .info-card {
+            background-color: #f8f9fa;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 id="stockTitle">股票历史估值走势</h2>
+            <a href="index.html" class="btn btn-outline-secondary">返回估值表</a>
+        </div>
+        
+        <div class="info-card">
+            <h5 id="stockInfo">加载中...</h5>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="valuationChart"></canvas>
+        </div>
+
+        <div class="valuation-table">
+            <h4>最新估值数据</h4>
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>字段</th>
+                        <th>数值</th>
+                        <th>字段</th>
+                        <th>数值</th>
+                    </tr>
+                </thead>
+                <tbody id="valuationData">
+                    <!-- 估值数据将通过JavaScript动态填充 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // 获取URL参数
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                symbol: params.get('symbol') || 'HK00388'
+            };
+        }
+
+        // 格式化数字
+        function formatNumber(num, decimals = 2) {
+            if (num === null || num === undefined || isNaN(num)) {
+                return '-';
+            }
+            try {
+                return new Intl.NumberFormat('zh-CN', {
+                    minimumFractionDigits: decimals,
+                    maximumFractionDigits: decimals
+                }).format(num);
+            } catch (error) {
+                console.error('数据格式化失败:', error, num);
+                return '-';
+            }
+        }
+
+        // 格式化日期
+        function formatDate(timestamp) {
+            const date = new Date(timestamp);
+            return date.toLocaleDateString('zh-CN');
+        }
+
+        // 加载股票数据
+        async function loadStockData(symbol) {
+            try {
+                const timestamp = new Date().getTime();
+                const response = await fetch(`data/${symbol}_valuation.json?t=${timestamp}`);
+                return await response.json();
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                return [];
+            }
+        }
+
+        // 创建图表
+        function createChart(data) {
+            if (data.length === 0) {
+                document.getElementById('valuationChart').innerHTML = '<p class="text-center">暂无数据</p>';
+                return;
+            }
+
+            // 按时间戳排序
+            const sortedData = data.sort((a, b) => a.timestamp - b.timestamp);
+            
+            const dates = sortedData.map(item => formatDate(item.timestamp));
+            const currentPrices = sortedData.map(item => item.current_close);
+            const peBuyPoints = sortedData.map(item => item.pe_buy_point);
+            const profitBuyPoints = sortedData.map(item => item.profit_buy_point);
+
+            const ctx = document.getElementById('valuationChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [
+                        {
+                            label: '当前价',
+                            data: currentPrices,
+                            borderColor: '#FF6B6B',
+                            backgroundColor: '#FF6B6B',
+                            tension: 0.1,
+                            fill: false
+                        },
+                        {
+                            label: '市盈率估值买入价',
+                            data: peBuyPoints,
+                            borderColor: '#2E8B57',
+                            backgroundColor: '#2E8B57',
+                            borderDash: [5, 5],
+                            tension: 0.1,
+                            fill: false
+                        },
+                        {
+                            label: '净利润估值买入价',
+                            data: profitBuyPoints,
+                            borderColor: '#4169E1',
+                            backgroundColor: '#4169E1',
+                            borderDash: [5, 5],
+                            tension: 0.1,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                            titleColor: '#000',
+                            bodyColor: '#000',
+                            borderColor: '#ddd',
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.dataset.label || '';
+                                    const value = context.parsed.y;
+                                    const dataIndex = context.dataIndex;
+                                    const item = sortedData[dataIndex];
+                                    
+                                    let tooltipText = `${label}: ${formatNumber(value)}`;
+                                    
+                                    // 添加其他字段信息
+                                    if (label === '净利润估值买入价') {
+                                        tooltipText += `\n市盈率(TTM): ${formatNumber(item.current_pe)}`;
+                                        tooltipText += `\n合理市盈率: ${formatNumber(item.reasonable_pe)}`;
+                                        tooltipText += `\n预测3Y净利润(亿元): ${formatNumber(item.predicted_net_profit_billion)}`;
+                                    }
+                                    
+                                    return tooltipText.split('\n');
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                boxWidth: 8,
+                                padding: 10
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: '日期'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: '价格'
+                            },
+                            beginAtZero: false
+                        }
+                    }
+                }
+            });
+        }
+
+        // 显示最新估值数据
+        function displayLatestValuation(data) {
+            if (data.length === 0) return;
+            
+            const latest = data[data.length - 1]; // 获取最新的数据
+            const tbody = document.getElementById('valuationData');
+            
+            const fields = [
+                ['股票代码', latest.symbol],
+                ['股票名称', latest.name],
+                ['日期', latest.date],
+                ['最新价', formatNumber(latest.current_close)],
+                ['市盈率(TTM)', formatNumber(latest.current_pe)],
+                ['合理市盈率', formatNumber(latest.reasonable_pe)],
+                ['市盈率估值', formatNumber(latest.pe_valuation)],
+                ['净利润估值', formatNumber(latest.net_profit_valuation)],
+                ['市盈率估值买入价', formatNumber(latest.pe_buy_point)],
+                ['净利润估值买入价', formatNumber(latest.profit_buy_point)],
+                ['市盈率卖点', formatNumber(latest.pe_percentile_90)+'倍'],
+                ['预测3Y净利润(亿元)', formatNumber(latest.predicted_net_profit_billion)],
+                ['计算时间', latest.calculation_date]
+            ];
+
+            let html = '';
+            for (let i = 0; i < fields.length; i += 2) {
+                html += '<tr>';
+                html += `<td><strong>${fields[i][0]}</strong></td>`;
+                html += `<td>${fields[i][1]}</td>`;
+                
+                if (i + 1 < fields.length) {
+                    html += `<td><strong>${fields[i + 1][0]}</strong></td>`;
+                    html += `<td>${fields[i + 1][1]}</td>`;
+                } else {
+                    html += '<td></td><td></td>';
+                }
+                
+                html += '</tr>';
+            }
+            
+            tbody.innerHTML = html;
+        }
+
+        // 初始化页面
+        async function initialize() {
+            const params = getUrlParams();
+            const data = await loadStockData(params.symbol);
+            
+            if (data.length > 0) {
+                const latest = data[data.length - 1];
+                document.getElementById('stockTitle').textContent = `${latest.name}(${latest.symbol}) 历史估值走势`;
+                document.getElementById('stockInfo').textContent = `${latest.name} (${latest.symbol}) - 最新数据: ${latest.date}`;
+                
+                createChart(data);
+                displayLatestValuation(data);
+            } else {
+                document.getElementById('stockInfo').textContent = '未找到相关数据';
+            }
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initialize);
+    </script>
+</body>
+</html>
