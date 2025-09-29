@@ -147,6 +147,7 @@ class StockDataProcessor:
                 for data in data_list:
                     # 转换时间戳为日期格式
                     data['date'] = self.db.timestamp_to_datetime(data['timestamp'])
+                    data['name'] = symbols_df[symbols_df['股票代码']==symbol]['股票名称'].iloc[0]
                     # 转换预测利润单位为亿元（如果存在）
                     if data['predicted_net_profit']:
                         data['predicted_net_profit_billion'] = round(data['predicted_net_profit'] / 100000000, 2)
@@ -164,6 +165,7 @@ class StockDataProcessor:
                 latest_data = max(data_list, key=lambda x: x['timestamp'])
                 # 转换时间戳为日期格式
                 latest_data['date'] = self.db.timestamp_to_datetime(latest_data['timestamp'])
+                data['name'] = symbols_df[symbols_df['股票代码']==symbol]['股票名称'].iloc[0]
                 # 转换预测利润单位为亿元（如果存在）
                 if latest_data['predicted_net_profit']:
                     latest_data['predicted_net_profit_billion'] = round(latest_data['predicted_net_profit'] / 100000000, 2)

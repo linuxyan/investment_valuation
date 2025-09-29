@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>股票估值表</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 移除 number-cell 的右对齐样式，改为左对齐 */
+        .table td.number-cell {
+            text-align: left;
+            white-space: nowrap;  /* 防止数字换行 */
+        }
+        
+        /* 其他样式保持不变 */
+        tr {
+            transition: background-color 0.3s ease;
+        }
+        .light-green {
+            background-color: #81b581 !important;
+        }
+        .dark-green {
+            background-color: #4e904e !important;
+        }
+        .dark-red {
+            background-color: #e60000 !important;
+        }
+        .table th, .table td {
+            white-space: nowrap;  /* 防止所有列换行 */
+            vertical-align: middle;  /* 垂直居中对齐 */
+            padding-left: 1rem;  /* 添加左侧内边距，使内容不会贴边 */
+        }
+        
+        /* 排序相关样式 */
+        .sortable {
+            cursor: pointer;
+            user-select: none;
+        }
+        
+        .sort-icon {
+            display: inline-block;
+            margin-left: 5px;
+            transition: transform 0.2s;
+        }
+        
+        .sort-asc .sort-icon {
+            transform: rotate(180deg);
+        }
+        
+        .sort-desc .sort-icon {
+            transform: rotate(0deg);
+        }
+        
+        /* 设置表格容器的水平滚动 */
+        .table-container {
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+        
+        /* 增加容器最大宽度 */
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1400px;
+            }
+        }
+        
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1600px;
+            }
+        }
+        
+        /* 为了保持悬停效果的一致性，也相应调整 hover 状态的颜色 */
+        .table-hover tbody tr.light-green:hover {
+            background-color: #81b581 !important;
+        }
+        
+        .table-hover tbody tr.dark-green:hover {
+            background-color: #4e904e !important;
+        }
+
+        .table-hover tbody tr.dark-red:hover {
+            background-color: #e60000 !important;
+        }
+        
+        /* 标题容器样式 */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        /* 标题样式 */
+        .header-container h2 {
+            margin: 0;  /* 移除标题的默认外边距 */
+        }
+        
+        /* 更新时间和计算方式按钮的容器 */
+        .header-controls {
+            display: flex;
+            align-items: center;  /* 垂直居中对齐 */
+            gap: 1rem;
+        }
+        
+        /* 更新时间样式 */
+        .update-time {
+            text-align: right;
+            line-height: 1.5;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* 计算方式链接样式 */
+        .info-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            white-space: nowrap;  /* 防止文字换行 */
+        }
+        
+        .info-link:hover {
+            background-color: #e9ecef;
+            color: #000;
+            text-decoration: none;
+        }
+        
+        .info-icon {
+            margin-right: 6px;
+            font-style: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="header-container">
+            <h2>股票估值表</h2>
+            <div class="header-controls">
+                <a href="/investment/portfolio.html" class="info-link">
+                    <i class="info-icon">ℹ</i>
+                    <span>P</span>
+                </a>
+                <div class="update-time">
+                    <div>周数据更新时间：<span id="lastUpdateTimeWeek">-</span></div>
+                    <div>日数据更新时间：<span id="lastUpdateTimeDay">-</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>日期</th>
+                        <th>股票代码</th>
+                        <th>股票名称</th>
+                        <th class="number-cell">最新价</th>
+                        <th class="number-cell sortable" data-field="pe_valuation">
+                            市盈率估值
+                            <span class="sort-icon">↕</span>
+                        </th>
+                        <th class="number-cell sortable" data-field="net_profit_valuation">
+                            净利润估值
+                            <span class="sort-icon">↕</span>
+                        </th>
+                        <th class="number-cell">市盈率估值买点</th>
+                        <th class="number-cell">净利润估值买点</th>
+                        <th class="number-cell">市盈率卖点</th>
+                        <th class="number-cell">市盈率(TTM)</th>
+                        <th class="number-cell">合理市盈率</th>
+                        <th class="number-cell">预测净利润(3Y)</th>
+                    </tr>
+                </thead>
+                <tbody id="stockTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let currentSortField = '';
+        let isAscending = true;
+
+        function sortData(data, field) {
+            return data.sort((a, b) => {
+                const valueA = parseFloat(a[field]) || 0;
+                const valueB = parseFloat(b[field]) || 0;
+                return isAscending ? valueA - valueB : valueB - valueA;
+            });
+        }
+
+        function initSortButtons() {
+            document.querySelectorAll('.sortable').forEach(header => {
+                header.addEventListener('click', () => {
+                    const field = header.dataset.field;
+                    
+                    // 清除其他列的排序状态
+                    document.querySelectorAll('.sortable').forEach(h => {
+                        if (h !== header) {
+                            h.classList.remove('sort-asc', 'sort-desc');
+                        }
+                    });
+
+                    // 切换排序方向
+                    if (currentSortField === field) {
+                        isAscending = !isAscending;
+                    } else {
+                        currentSortField = field;
+                        isAscending = true;
+                    }
+
+                    // 更新排序图标
+                    header.classList.toggle('sort-asc', isAscending);
+                    header.classList.toggle('sort-desc', !isAscending);
+
+                    // 重新渲染表格
+                    renderTable(sortData([...tableData], field));
+                });
+            });
+        }
+
+        let tableData = [];  // 存储原始数据
+
+        async function loadStockData() {
+            try {
+                const timestamp = new Date().getTime();
+                const response = await fetch(`/data/all_stocks_valuation.json?t=${timestamp}`);
+                tableData = await response.json();
+                renderTable(tableData);
+                initSortButtons();
+            } catch (error) {
+                console.error('加载数据失败:', error);
+            }
+        }
+
+        async function loadLastUpdateTime() {
+            try {
+                const timestamp = new Date().getTime();
+                const response = await fetch(`/investment/trend_graph/last_date.json?t=${timestamp}`);
+                const data = await response.json();
+                document.getElementById('lastUpdateTimeWeek').textContent = data.date_w || '-';
+                document.getElementById('lastUpdateTimeDay').textContent = data.date_d || '-';
+            } catch (error) {
+                console.error('加载更新时间失败:', error);
+                document.getElementById('lastUpdateTimeWeek').textContent = '-';
+                document.getElementById('lastUpdateTimeDay').textContent = '-';
+            }
+        }
+
+        function formatNumber(num, decimals = 2) {
+            if (num === null || num === undefined || isNaN(num)) {
+                return '-';
+            }
+            try {
+                return new Intl.NumberFormat('zh-CN', {
+                    minimumFractionDigits: decimals,
+                    maximumFractionDigits: decimals
+                }).format(num);
+            } catch (error) {
+                console.error('数据格式化失败:', error, num);
+                return '-';
+            }
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('stockTableBody');
+            tbody.innerHTML = '';
+
+            data.forEach(stock => {
+                const row = document.createElement('tr');
+                const latest_price = parseFloat(stock['current_close']) || 0;
+                const pe_ttm = parseFloat(stock['current_pe']) || 0;
+                const pe_buy_point = parseFloat(stock['pe_buy_point']) || 0;
+                const profit_buy_point = parseFloat(stock['profit_buy_point']) || 0;
+                const pe_sell_point = parseFloat(stock['pe_percentile_90']) || 0;
+
+                const isLightGreen = latest_price <= pe_buy_point || 
+                                   latest_price <= profit_buy_point;
+                const isDarkGreen = latest_price <= pe_buy_point && 
+                                  latest_price <= profit_buy_point;
+                
+                const isDarkRed = pe_sell_point <= pe_ttm;
+
+                if (isDarkGreen) {
+                    row.classList.add('dark-green');
+                } else if (isLightGreen) {
+                    row.classList.add('light-green');
+                } else if (isDarkRed) {
+                    row.classList.add('dark-red');
+                }
+
+                row.innerHTML = `
+                    <td>${stock['date'] || '-'}</td>
+                    <td><a href="/investment/history.html?code=${stock['symbol']}">${stock['symbol']}</a></td>
+                    <td>${stock['name']}</td>
+                    <td class="number-cell">${formatNumber(parseFloat(stock['current_close']))}</td>
+                    <td class="number-cell">${formatNumber(parseFloat(stock['pe_valuation']))}</td>
+                    <td class="number-cell">${formatNumber(parseFloat(stock['net_profit_valuation']))}</td>
+                    <td class="number-cell">${formatNumber(parseFloat(stock['pe_buy_point']))}</td>
+                    <td class="number-cell">${formatNumber(parseFloat(stock['profit_buy_point']))}</td>
+                    <td class="number-cell">${formatNumber(parseFloat(stock['pe_percentile_90']))}</td>
+                    <td class="number-cell">${formatNumber(parseFloat(stock['current_pe']))}</td>
+                    <td class="number-cell">${formatNumber(parseFloat(stock['reasonable_pe']))}</td>
+                    <td class="number-cell">${formatNumber(parseFloat(stock['predicted_net_profit_billion']))}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        async function initialize() {
+            await Promise.all([
+                loadStockData(),
+                loadLastUpdateTime()
+            ]);
+        }
+
+        // 修改入口函数调用
+        initialize();
+    </script>
+</body>
+</html> 

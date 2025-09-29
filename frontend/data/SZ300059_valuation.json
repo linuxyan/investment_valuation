@@ -1,0 +1,22 @@
+[
+  {
+    "symbol": "SZ300059",
+    "timestamp": 1759075200000,
+    "current_close": 28.15,
+    "current_pe": 40.001,
+    "avg_pe_5y": 38.55,
+    "std_pe_5y": 13.32,
+    "pe_percentile_90": 86.88,
+    "reasonable_pe": 31.9,
+    "pe_valuation": 1.25,
+    "net_profit_valuation": 1.3,
+    "pe_buy_point": 11.22,
+    "profit_buy_point": 10.81,
+    "predicted_net_profit": 13393500000.0,
+    "profit_date": "2025-09-29",
+    "calculation_date": "2025-09-29 07:43:13",
+    "date": "2025-09-29",
+    "name": "东方财富",
+    "predicted_net_profit_billion": 133.94
+  }
+]
