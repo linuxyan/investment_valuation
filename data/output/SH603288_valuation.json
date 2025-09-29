@@ -1,0 +1,21 @@
+[
+  {
+    "symbol": "SH603288",
+    "timestamp": 1759075200000,
+    "current_close": 38.92,
+    "current_pe": 33.408,
+    "avg_pe_5y": 54.58,
+    "std_pe_5y": 20.33,
+    "pe_percentile_90": 76.31,
+    "reasonable_pe": 44.41,
+    "pe_valuation": 0.75,
+    "net_profit_valuation": 0.78,
+    "pe_buy_point": 25.87,
+    "profit_buy_point": 24.91,
+    "predicted_net_profit": 8190500000.0,
+    "profit_date": "2025-09-29",
+    "calculation_date": "2025-09-29 06:30:00",
+    "date": "2025-09-29",
+    "predicted_net_profit_billion": 81.91
+  }
+]

@@ -1,0 +1,73 @@
+name: Stock-Valuation
+
+on:
+  schedule:
+    - cron: '0 8 * * 1,2,3,4,5'  # Asia/Shanghai 16:00
+  workflow_dispatch:
+
+jobs:
+  dayjob:
+    if: github.event.pull_request.draft == false
+    name: Get Stock Day or Week Data
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: szenius/set-timezone@v2.0
+        with:
+          timezoneLinux: "Asia/Shanghai"
+
+      - uses: actions/checkout@v4
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'poetry'
+
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ hashFiles('**/pyproject.toml') }}-v0
+
+      - name: Install dependencies
+        run: poetry install --no-root --no-ansi --no-interaction
+
+      - name: Run code
+        run: |
+          source .venv/bin/activate
+          python --mode basic_data --delay 2.0
+          python --mode profit_data --delay 2.0
+          python --mode process
+
+      - name: Commit
+        run: |
+          git config --global user.email "4221273+linuxyan@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add .
+          git commit -m "action:`date +'%Y-%m-%dT%H:%M:%S'`"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check job status
+        if: ${{ failure() }}
+        run: |
+          curl --location --request POST "https://api.day.app/TWLFNN3SKtPvTiUcXtdRbn/Github-Actions/Stock-Valuation任务执行失败,请检查."
+
+  Delete-deployment-pages-actions:
+    needs: dayjob
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - name: Delete deployment github pages actions
+        uses: strumwolf/delete-deployment-environment@v2.3.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          environment: github-pages
+          onlyRemoveDeployments: true
