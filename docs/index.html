@@ -143,7 +143,7 @@
         <div class="header-container">
             <h2>股票估值表</h2>
             <div class="header-controls">
-                <a href="/position.html" class="info-link">
+                <a href="/investment_valuation/position.html" class="info-link">
                     <i class="info-icon">ℹ</i>
                     <span>持仓组合</span>
                 </a>
@@ -293,7 +293,7 @@
 
                 row.innerHTML = `
                     <td>${stock['date'] || '-'}</td>
-                    <td><a href="/history_valuation.html?symbol=${stock['symbol']}">${stock['symbol']}</a></td>
+                    <td><a href="/investment_valuation/history_valuation.html?symbol=${stock['symbol']}">${stock['symbol']}</a></td>
                     <td>${stock['name']}</td>
                     <td class="number-cell">${formatNumber(parseFloat(stock['current_close']))}</td>
                     <td class="number-cell">${formatNumber(parseFloat(stock['pe_valuation']))}</td>
