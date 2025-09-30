@@ -3,6 +3,7 @@ import logging
 import argparse
 from data_fetcher import StockDataFetcher
 from data_processor import StockDataProcessor
+from data_position import process_positions
 from database import StockDatabase
 
 def setup_logging():
@@ -20,8 +21,12 @@ def main():
     setup_logging()
     
     parser = argparse.ArgumentParser(description='股票数据分析与估值系统')
-    parser.add_argument('--mode', choices=['basic_data','profit_data', 'process', 'all'], default='all',
-                       help='运行模式: basic_data-仅获取基础数据,profit_data-仅获取业绩预测数据, process-仅处理数据, all-全部执行')
+    parser.add_argument('--mode', choices=['basic_data','profit_data', 'process', 'position', 'all'], default='all',
+                       help='运行模式: basic_data-仅获取基础数据, \
+                       profit_data-仅获取业绩预测数据, \
+                       process-仅处理数据, \
+                       position-仅处理持仓数据, \
+                       all-全部执行')
     parser.add_argument('--delay', type=float, default=1.0,
                        help='API请求间隔时间(秒)')
     
@@ -55,7 +60,13 @@ def main():
             results = processor.process_all_stocks()
             processor.save_to_json()
             logging.info(f"股票数据处理完成，共处理 {len(results)} 个股票")
-            
+
+        if args.mode in ['position', 'all']:
+            # 处理数据
+            logging.info("开始处理持仓数据")
+            process_positions()
+            logging.info("持仓数据处理完成")
+
         logging.info("股票数据分析与估值系统运行完成")
         
     except Exception as e:

@@ -42,6 +42,7 @@ jobs:
           python main.py --mode basic_data --delay 2.0
           python main.py --mode profit_data --delay 2.0
           python main.py --mode process
+          python main.py --mode position
 
       - name: Commit
         run: |

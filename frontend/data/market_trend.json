@@ -1,0 +1,832 @@
+[
+    {
+        "date": "2022-01-01",
+        "portfolio_value": 4100000.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-04",
+        "portfolio_value": 3854024.82,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-05",
+        "portfolio_value": 3800968.85,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-06",
+        "portfolio_value": 3826431.56,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-07",
+        "portfolio_value": 3911071.47,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-10",
+        "portfolio_value": 3948977.95,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-11",
+        "portfolio_value": 3891907.48,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-12",
+        "portfolio_value": 3995204.79,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-13",
+        "portfolio_value": 4016120.2,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-14",
+        "portfolio_value": 4177117.67,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-15",
+        "portfolio_value": 4163236.63,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-17",
+        "portfolio_value": 4243737.9,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-18",
+        "portfolio_value": 4294852.44,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-19",
+        "portfolio_value": 4291464.29,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-20",
+        "portfolio_value": 4219673.15,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-21",
+        "portfolio_value": 4365389.9,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-24",
+        "portfolio_value": 4265628.52,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-25",
+        "portfolio_value": 4173344.16,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-26",
+        "portfolio_value": 4261253.9,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-27",
+        "portfolio_value": 4264838.64,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-02-28",
+        "portfolio_value": 4207520.04,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-03",
+        "portfolio_value": 4212827.48,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-04",
+        "portfolio_value": 4230936.2,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-05",
+        "portfolio_value": 4283478.3,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-06",
+        "portfolio_value": 4509737.4,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-07",
+        "portfolio_value": 4476401.8,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-11",
+        "portfolio_value": 4445411.25,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-12",
+        "portfolio_value": 4399727.8,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-13",
+        "portfolio_value": 4375284.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-14",
+        "portfolio_value": 4554211.2,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-17",
+        "portfolio_value": 4576865.55,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-18",
+        "portfolio_value": 4636599.9,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-19",
+        "portfolio_value": 4643259.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-20",
+        "portfolio_value": 4512230.05,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-21",
+        "portfolio_value": 4440104.2,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-24",
+        "portfolio_value": 4460519.1,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-25",
+        "portfolio_value": 4403666.2,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-26",
+        "portfolio_value": 4424466.9,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-27",
+        "portfolio_value": 4455914.5,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-03-28",
+        "portfolio_value": 4452732.25,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-03",
+        "portfolio_value": 4375208.48,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-04",
+        "portfolio_value": 4382526.14,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-07",
+        "portfolio_value": 4004733.48,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-08",
+        "portfolio_value": 4088995.36,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-09",
+        "portfolio_value": 4092326.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-10",
+        "portfolio_value": 4132438.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-11",
+        "portfolio_value": 4138545.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-14",
+        "portfolio_value": 4158449.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-15",
+        "portfolio_value": 4181685.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-16",
+        "portfolio_value": 4144740.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-17",
+        "portfolio_value": 4203321.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-18",
+        "portfolio_value": 4193808.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-21",
+        "portfolio_value": 4175718.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-22",
+        "portfolio_value": 4184392.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-23",
+        "portfolio_value": 4260548.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-24",
+        "portfolio_value": 4237995.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-25",
+        "portfolio_value": 4269468.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-28",
+        "portfolio_value": 4268866.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-29",
+        "portfolio_value": 4231597.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-04-30",
+        "portfolio_value": 4245611.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-01",
+        "portfolio_value": 4245611.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-02",
+        "portfolio_value": 4297711.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-05",
+        "portfolio_value": 4297711.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-06",
+        "portfolio_value": 4334031.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-07",
+        "portfolio_value": 4296544.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-08",
+        "portfolio_value": 4366530.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-10",
+        "portfolio_value": 4366809.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-12",
+        "portfolio_value": 4487245.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-13",
+        "portfolio_value": 4404692.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-14",
+        "portfolio_value": 4527327.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-16",
+        "portfolio_value": 4439409.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-19",
+        "portfolio_value": 4421439.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-20",
+        "portfolio_value": 4447091.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-21",
+        "portfolio_value": 4456147.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-22",
+        "portfolio_value": 4432387.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-23",
+        "portfolio_value": 4431413.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-26",
+        "portfolio_value": 4356302.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-27",
+        "portfolio_value": 4358574.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-28",
+        "portfolio_value": 4324583.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-29",
+        "portfolio_value": 4353114.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-05-30",
+        "portfolio_value": 4270680.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-02",
+        "portfolio_value": 4274089.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-03",
+        "portfolio_value": 4289479.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-04",
+        "portfolio_value": 4321263.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-05",
+        "portfolio_value": 4335949.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-06",
+        "portfolio_value": 4323601.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-09",
+        "portfolio_value": 4316797.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-10",
+        "portfolio_value": 4282690.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-11",
+        "portfolio_value": 4309735.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-12",
+        "portfolio_value": 4251194.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-13",
+        "portfolio_value": 4210707.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-15",
+        "portfolio_value": 4210707.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-16",
+        "portfolio_value": 4202516.5,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-17",
+        "portfolio_value": 4223360.5,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-18",
+        "portfolio_value": 4194622.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-19",
+        "portfolio_value": 4151120.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-20",
+        "portfolio_value": 4189897.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-23",
+        "portfolio_value": 4169813.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-24",
+        "portfolio_value": 4218565.5,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-25",
+        "portfolio_value": 4229672.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-26",
+        "portfolio_value": 4267579.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-06-27",
+        "portfolio_value": 4243074.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-02",
+        "portfolio_value": 4200900.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-03",
+        "portfolio_value": 4209455.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-04",
+        "portfolio_value": 4199091.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-07",
+        "portfolio_value": 4206803.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-08",
+        "portfolio_value": 4228408.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-09",
+        "portfolio_value": 4199812.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-10",
+        "portfolio_value": 4208301.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-11",
+        "portfolio_value": 4213722.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-14",
+        "portfolio_value": 4226377.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-15",
+        "portfolio_value": 4288762.5,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-16",
+        "portfolio_value": 4285723.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-17",
+        "portfolio_value": 4299715.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-18",
+        "portfolio_value": 4337705.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-21",
+        "portfolio_value": 4356997.5,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-22",
+        "portfolio_value": 4404112.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-23",
+        "portfolio_value": 4537788.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-24",
+        "portfolio_value": 4578789.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-25",
+        "portfolio_value": 4500490.5,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-28",
+        "portfolio_value": 4510239.5,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-29",
+        "portfolio_value": 4518270.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-30",
+        "portfolio_value": 4504861.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-07-31",
+        "portfolio_value": 4475831.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-02",
+        "portfolio_value": 4403156.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-04",
+        "portfolio_value": 4476305.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-05",
+        "portfolio_value": 4519578.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-06",
+        "portfolio_value": 4558369.5,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-07",
+        "portfolio_value": 4547230.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-08",
+        "portfolio_value": 4516811.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-11",
+        "portfolio_value": 4551818.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-12",
+        "portfolio_value": 4534805.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-13",
+        "portfolio_value": 4640741.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-14",
+        "portfolio_value": 4662635.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-15",
+        "portfolio_value": 4667474.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-18",
+        "portfolio_value": 4660943.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-19",
+        "portfolio_value": 4691975.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-20",
+        "portfolio_value": 4709193.5,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-21",
+        "portfolio_value": 4712325.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-22",
+        "portfolio_value": 4767304.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-23",
+        "portfolio_value": 4764304.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-25",
+        "portfolio_value": 4871963.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-26",
+        "portfolio_value": 4828586.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-27",
+        "portfolio_value": 4740692.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-28",
+        "portfolio_value": 4718522.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-08-29",
+        "portfolio_value": 4770106.5,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-01",
+        "portfolio_value": 4809045.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-02",
+        "portfolio_value": 4811782.5,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-03",
+        "portfolio_value": 4787391.5,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-04",
+        "portfolio_value": 4743557.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-05",
+        "portfolio_value": 4819152.5,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-08",
+        "portfolio_value": 4898262.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-09",
+        "portfolio_value": 4945526.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-10",
+        "portfolio_value": 4998163.5,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-11",
+        "portfolio_value": 4976161.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-12",
+        "portfolio_value": 5031065.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-15",
+        "portfolio_value": 5037870.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-16",
+        "portfolio_value": 5021844.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-17",
+        "portfolio_value": 5087045.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-18",
+        "portfolio_value": 4959978.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-19",
+        "portfolio_value": 4966921.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-22",
+        "portfolio_value": 4944418.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-25",
+        "portfolio_value": 4968126.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-26",
+        "portfolio_value": 4934018.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-29",
+        "portfolio_value": 5043894.0,
+        "investment_cost": 4100000.0
+    },
+    {
+        "date": "2025-09-30",
+        "portfolio_value": 5024804.0,
+        "investment_cost": 4100000.0
+    }
+]

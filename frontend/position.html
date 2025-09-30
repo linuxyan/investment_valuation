@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>投资组合管理 - 持仓明细</title>
+    <!-- 引入 Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            max-width: 1400px;
+        }
+        .right {
+            text-align: center;
+        }
+        .red {
+            color: #e74c3c !important;
+            font-weight: 600;
+        }
+        .green {
+            color: #27ae60 !important;
+            font-weight: 600;
+        }
+        
+        /* 表格样式优化 - 简洁风格 */
+        .table {
+            border-radius: 4px;
+            overflow: hidden;
+            background: white;
+            border: 1px solid #dee2e6;
+        }
+        .table thead th {
+            background: #495057;
+            color: white;
+            border: none;
+            font-weight: 600;
+            padding: 12px 10px;
+            font-size: 14px;
+        }
+        .table tbody tr {
+            transition: background-color 0.2s ease;
+        }
+        .table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+        .table tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .table td {
+            padding: 10px 8px;
+            border-color: #dee2e6;
+            vertical-align: middle;
+        }
+        
+        /* 强制所有表头和单元格居中显示 */
+        table th,
+        table td {
+            text-align: center !important;
+        }
+        
+        /* 总计行特殊样式 */
+        #summaryRow {
+            font-weight: bold;
+            background-color: #f8f9fa;
+        }
+        #summaryRow td {
+            border-top: 2px solid #dee2e6;
+        }
+        
+        /* 图表容器优化 */
+        #trendChart {
+            width: 100%;
+            height: 400px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+            margin: 0 auto;
+        }
+        
+        /* 加载状态 */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .table-responsive {
+                font-size: 12px;
+            }
+            .table th, .table td {
+                padding: 8px 5px;
+            }
+            #trendChart {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0">投资组合管理 - 持仓明细 <span id="currentDate"></span></h1>
+            <div>
+                <button id="refreshBtn" class="btn btn-outline-primary btn-sm">
+                    <span id="refreshIcon">🔄</span> 刷新数据
+                </button>
+                <span id="lastUpdate" class="text-muted ms-2" style="font-size: 12px;"></span>
+            </div>
+        </div>
+        <div class="table-responsive" style="border-radius: 8px; overflow: hidden;">
+            <table id="portfolioTable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>股票代码</th>
+                        <th>股票名称</th>
+                        <th>持仓数量</th>
+                        <th class="right">当前价</th>
+                        <th>今日涨跌幅</th>
+                        <th class="right">今日盈亏</th>
+                        <th class="right">持仓占比</th>
+                        <th class="right">持仓市值</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="loadingRow">
+                        <td colspan="8" class="text-center py-4">
+                            <div class="loading">
+                                <div class="spinner"></div>
+                                <p class="mt-2 mb-0">正在加载持仓数据...</p>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr style="border: 1px solid #ddd; margin: 40px 0;">
+        <!-- 添加市值趋势图 -->
+        <div class="my-5">
+            <div id="trendChart"></div>
+        </div>
+    </div>
+
+    <script>
+        // 根据股票代码判断市场前缀
+        function getMarketPrefix(stockCode) {
+            if (stockCode.toLowerCase().startsWith("hk"))
+                return "hk";
+            return stockCode.startsWith("6") ? "sh" : "sz";
+        }
+
+        // 将数字格式化为千分位
+        function formatNumber(num) {
+            return Number(num).toLocaleString();
+        }
+
+        // 全局变量：保存动态数据的 DOM 引用及部分静态数据
+        let rowMapping = {};
+        let stockIds = [];
+        let staticLoaded = false;
+        // 默认港币兑人民币汇率，稍后通过接口更新
+        let hkExchangeRate = 0.90;
+        // 获取实时汇率（HKD -> CNY）
+        fetch("https://api.exchangerate-api.com/v4/latest/HKD")
+            .then(res => res.json())
+            .then(data => {
+                if(data && data.rates && data.rates.CNY) {
+                    hkExchangeRate = data.rates.CNY;
+                    // 实时汇率获取成功后立即调用 updateMarketData() 更新数据
+                    updateMarketData();
+                }
+            })
+            .catch(err => console.error("汇率获取失败:", err));
+
+        // 首次加载静态持仓数据并构建表格
+        function loadStaticPortfolioData() {
+            fetch("/data/current_position.json?cb=" + new Date().getTime())
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("currentDate").textContent = "(" + data.date + ")";
+                    const positions = data.positions;
+                    const tbody = document.querySelector("#portfolioTable tbody");
+                    
+                    // 移除加载状态
+                    const loadingRow = document.getElementById("loadingRow");
+                    if (loadingRow) {
+                        loadingRow.remove();
+                    }
+                    
+                    tbody.innerHTML = "";
+                    rowMapping = {};
+                    stockIds = [];
+                    positions.forEach(position => {
+                        const stockCode = position["股票代码"];
+                        const market = getMarketPrefix(stockCode);
+                        let cleanCode = stockCode;
+                        if (stockCode.toLowerCase().startsWith("hk")) {
+                            cleanCode = stockCode.substring(2); // 去除 "hk" 前缀
+                        }
+                        const stockId = market + cleanCode;
+                        stockIds.push(stockId);
+
+                        const tr = document.createElement("tr");
+                        // 股票代码：支持点击（此处直接显示文本，可根据需要添加链接）
+                        const tdCode = document.createElement("td");
+                        tdCode.textContent = stockCode;
+                        tr.appendChild(tdCode);
+
+                        const tdName = document.createElement("td");
+                        tdName.textContent = position["股票名称"];
+                        tr.appendChild(tdName);
+
+                        const tdQuantity = document.createElement("td");
+                        tdQuantity.textContent = position["持仓数量"];
+                        tr.appendChild(tdQuantity);
+
+                        const tdCurrentPrice = document.createElement("td");
+                        tdCurrentPrice.className = "right";
+                        tr.appendChild(tdCurrentPrice);
+
+                        const tdChange = document.createElement("td");
+                        tr.appendChild(tdChange);
+
+                        // 新增：今日盈亏单元格（右对齐）
+                        const tdTodayProfit = document.createElement("td");
+                        tdTodayProfit.className = "right";
+                        tr.appendChild(tdTodayProfit);
+
+                        const tdHoldingRatio = document.createElement("td");
+                        tdHoldingRatio.className = "right";
+                        tr.appendChild(tdHoldingRatio);
+
+                        const tdMarketValue = document.createElement("td");
+                        tdMarketValue.className = "right";
+                        tr.appendChild(tdMarketValue);
+
+                        tbody.appendChild(tr);
+
+                        // 保存当前行的 DOM 引用及所需静态数据
+                        rowMapping[stockId] = {
+                            tdCurrentPrice,
+                            tdChange,
+                            tdTodayProfit,
+                            tdHoldingRatio,
+                            tdMarketValue,
+                            // 保存持仓数量（已从 CSV 读取）
+                            quantity: parseFloat(position["持仓数量"])
+                        };
+                    });
+                    staticLoaded = true;
+                    updateMarketData();
+                })
+                .catch(err => {
+                    console.error("Error loading current_position.json:", err);
+                    const tbody = document.querySelector("#portfolioTable tbody");
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="8" class="text-center py-4">
+                                <div style="color: #e74c3c;">
+                                    <i style="font-size: 48px; margin-bottom: 10px;">⚠️</i>
+                                    <p class="mb-1">数据加载失败</p>
+                                    <small class="text-muted">请检查网络连接或稍后重试</small>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+        }
+
+        // 动态数据刷新函数（不重构静态表格）
+        function updateMarketData() {
+            if (!staticLoaded || stockIds.length === 0) return;
+            const apiUrl = `https://qt.gtimg.cn/q=${stockIds.join(',')}`;
+            fetch(apiUrl)
+                .then(response => response.text())
+                .then(text => {
+                    let items = text.split(";");
+                    let newTotalMarketValue = 0; // 累计所有持仓市值
+                    let totalTodayProfit = 0;    // 累计所有今日盈亏
+                    items.forEach(item => {
+                        if (item.trim().length === 0) return;
+                        let identifier = item.substring(2, item.indexOf("="));
+                        if (identifier.startsWith('_')) {
+                            identifier = identifier.substring(1);
+                        }
+                        if (!rowMapping.hasOwnProperty(identifier)) {
+                            console.warn("Identifier not found:", identifier);
+                            return;
+                        }
+                        // 对于现金持仓（"sz000000"）跳过，现金持仓由后面统一更新
+                        if (identifier === "sz000000") return;
+                        let startQuote = item.indexOf('="');
+                        if (startQuote === -1) return;
+                        let endQuote = item.lastIndexOf('"');
+                        if (endQuote === -1) return;
+                        let content = item.substring(startQuote + 2, endQuote);
+                        let parts = content.split('~');
+                        if (parts.length < 4) return;
+                        
+                        let currentPrice = parseFloat(parts[3]);
+                        // 如果 parts 包含今日涨跌幅数据，则使用；否则默认 0
+                        let todayChange = 0;
+                        if (parts.length > 32) {
+                            todayChange = parseFloat(parts[32]);
+                        } else {
+                            todayChange = 0;
+                        }
+
+                        const { quantity, tdCurrentPrice, tdChange, tdTodayProfit, tdHoldingRatio, tdMarketValue } = rowMapping[identifier];
+                        let marketValue = currentPrice * quantity;
+                        // 计算今日盈亏： (当前价 - 昨日收盘价) × 持仓数量
+                        let yesterdayClose = parseFloat(parts[4]);
+                        let todayProfit = (currentPrice - yesterdayClose) * quantity;
+                        // 对于港股，转换为人民币
+                        if (identifier.startsWith("hk")) {
+                            marketValue = marketValue * hkExchangeRate;
+                            todayProfit = todayProfit * hkExchangeRate;
+                        }
+                        
+                        // 更新当前价显示
+                        if (identifier.startsWith("hk")) {
+                            tdCurrentPrice.textContent = "HK$" + formatNumber(currentPrice);
+                            tdCurrentPrice.title = "港币";
+                        } else {
+                            tdCurrentPrice.textContent = formatNumber(currentPrice);
+                        }
+                        tdChange.textContent = todayChange.toFixed(2) + '%';
+                        tdChange.className = "";
+                        tdChange.classList.add(todayChange >= 0 ? "red" : "green");
+                        tdTodayProfit.textContent = formatNumber(todayProfit);
+                        tdTodayProfit.className = "";
+                        tdTodayProfit.classList.add(todayProfit >= 0 ? "red" : "green");
+                        tdMarketValue.textContent = formatNumber(marketValue);
+                        tdMarketValue.className = "right";
+                        rowMapping[identifier].marketValue = marketValue;
+                        
+                        rowMapping[identifier].todayChange = todayChange;
+                        totalTodayProfit += todayProfit;
+                        newTotalMarketValue += marketValue;
+                    });
+                    
+                    // 更新现金持仓数据（若存在）
+                    if (rowMapping.hasOwnProperty("sz000000")) {
+                        let cashData = rowMapping["sz000000"];
+                        let currentPrice = 1.0;
+                        let quantity = cashData.quantity;
+                        let marketValue = currentPrice * quantity;
+                        let todayProfit = 0;  // 固定为0
+                        
+                        cashData.tdCurrentPrice.textContent = formatNumber(currentPrice);
+                        cashData.tdCurrentPrice.title = "";
+                        cashData.tdChange.textContent = "0.00%";
+                        cashData.tdChange.className = "";
+                        cashData.tdChange.classList.add("red");
+                        cashData.tdTodayProfit.textContent = formatNumber(todayProfit);
+                        cashData.tdTodayProfit.className = "";
+                        cashData.tdTodayProfit.classList.add("red");
+                        cashData.tdMarketValue.textContent = formatNumber(marketValue);
+                        cashData.tdMarketValue.className = "right";
+                        cashData.marketValue = marketValue; // 保存现金持仓市值
+                        cashData.todayChange = 0;
+                        newTotalMarketValue += marketValue;
+                        totalTodayProfit += todayProfit;
+                    }
+
+                    // 更新每支股票的持仓占比
+                    for (let id in rowMapping) {
+                        let ratio = "0.00%";
+                        if (newTotalMarketValue > 0) {
+                            ratio = ((rowMapping[id].marketValue / newTotalMarketValue) * 100).toFixed(2) + "%";
+                        }
+                        rowMapping[id].tdHoldingRatio.textContent = ratio;
+                    }
+
+                    // 可选：计算整体加权今日涨跌幅
+                    let weightedChangeSum = 0;
+                    for (let id in rowMapping) {
+                        if (rowMapping[id].todayChange !== undefined) {
+                            weightedChangeSum += rowMapping[id].todayChange * rowMapping[id].marketValue;
+                        }
+                    }
+                    let overallTodayChange = 0;
+                    if (newTotalMarketValue > 0) {
+                        overallTodayChange = weightedChangeSum / newTotalMarketValue;
+                    }
+
+                    // 生成 Summary 行（共8列）
+                    let tbody = document.querySelector("#portfolioTable tbody");
+                    let summaryRow = document.getElementById("summaryRow");
+                    if (!summaryRow) {
+                        summaryRow = document.createElement("tr");
+                        summaryRow.id = "summaryRow";
+                        tbody.appendChild(summaryRow);
+                    }
+                    summaryRow.innerHTML = "";
+                    // 生成 Summary 行（8列：股票代码、股票名称、持仓数量、当前价、今日涨跌幅、今日盈亏、持仓占比、持仓市值）
+                    // 列1：显示 "总计"
+                    let tdTotal = document.createElement("td");
+                    tdTotal.textContent = "总计";
+                    summaryRow.appendChild(tdTotal);
+
+                    // 列2到列4：空白（分别对应 股票名称、持仓数量、当前价）
+                    for (let i = 0; i < 3; i++){
+                        let tdBlank = document.createElement("td");
+                        tdBlank.textContent = "";
+                        summaryRow.appendChild(tdBlank);
+                    }
+
+                    // 列5：整体加权今日涨跌幅（按照各行市值加权计算，显示百分比）
+                    let tdOverallChange = document.createElement("td");
+                    tdOverallChange.className = "right";
+                    tdOverallChange.textContent = overallTodayChange.toFixed(2) + "%";
+                    tdOverallChange.style.fontWeight = "bold";
+                    if (overallTodayChange >= 0) {
+                        tdOverallChange.style.color = "red";
+                    } else {
+                        tdOverallChange.style.color = "green";
+                    }
+                    summaryRow.appendChild(tdOverallChange);
+
+                    // 列6：累计今日盈亏
+                    let tdTotalTodayProfit = document.createElement("td");
+                    tdTotalTodayProfit.className = "right";
+                    tdTotalTodayProfit.textContent = formatNumber(totalTodayProfit.toFixed(2));
+                    tdTotalTodayProfit.style.fontWeight = "bold";
+                    if (totalTodayProfit >= 0) {
+                        tdTotalTodayProfit.style.color = "red";
+                    } else {
+                        tdTotalTodayProfit.style.color = "green";
+                    }
+                    summaryRow.appendChild(tdTotalTodayProfit);
+
+                    // 列7：持仓占比（固定 100%）
+                    let tdTotalRatio = document.createElement("td");
+                    tdTotalRatio.className = "right";
+                    tdTotalRatio.textContent = "100%";
+                    summaryRow.appendChild(tdTotalRatio);
+
+                    // 列8：总持仓市值
+                    let tdTotalMarketValue = document.createElement("td");
+                    tdTotalMarketValue.className = "right";
+                    tdTotalMarketValue.textContent = formatNumber(newTotalMarketValue);
+                    summaryRow.appendChild(tdTotalMarketValue);
+                })
+                .catch(err => console.error("Error fetching batch stock data:", err));
+        }
+
+        // 首次加载静态数据
+        loadStaticPortfolioData();
+        // 刷新按钮功能
+        document.getElementById('refreshBtn').addEventListener('click', function() {
+            const btn = this;
+            const icon = document.getElementById('refreshIcon');
+            const originalIcon = icon.textContent;
+            
+            // 显示加载状态
+            btn.disabled = true;
+            icon.textContent = '⏳';
+            btn.classList.add('disabled');
+            
+            // 执行刷新
+            updateMarketData();
+            
+            // 恢复按钮状态
+            setTimeout(() => {
+                btn.disabled = false;
+                icon.textContent = originalIcon;
+                btn.classList.remove('disabled');
+            }, 1000);
+        });
+        
+        // 更新最后刷新时间
+        function updateLastRefreshTime() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('zh-CN', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('lastUpdate').textContent = `最后更新: ${timeStr}`;
+        }
+        
+        // 每10秒刷新动态数据
+        setInterval(function() {
+            updateMarketData();
+            updateLastRefreshTime();
+        }, 10000);
+        
+        // 初始更新时间
+        setTimeout(updateLastRefreshTime, 1000);
+    </script>
+    <!-- 引入 ECharts -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@latest/dist/echarts.min.js"></script>
+    <script>
+        // 从 market_trend.json 文件中读取数据，并绘制趋势图
+        fetch("/data/market_trend.json?cb=" + new Date().getTime())
+            .then(response => response.json())
+            .then(data => {
+                if (!data || data.length === 0) {
+                    document.getElementById('trendChart').innerHTML = '<div class="loading"><div class="spinner"></div><p>暂无趋势数据</p></div>';
+                    return;
+                }
+                
+                // 按日期排序
+                data.sort((a, b) => new Date(a.date) - new Date(b.date));
+                const dates = data.map(item => item.date);
+                const values = data.map(item => item.portfolio_value);
+                const costs = data.map(item => item.investment_cost);
+                
+                // 计算组合净值数据（以初始成本为基准1.0）
+                const netValues = values.map((value, index) => {
+                    const initialCost = costs[0]; // 使用初始成本作为基准
+                    return initialCost > 0 ? (value / initialCost).toFixed(4) : 1.0;
+                });
+
+                // 初始化 ECharts 实例
+                var myChart = echarts.init(document.getElementById('trendChart'));
+
+                // 定义图表配置
+                const option = {
+                    title: {
+                        text: '投资组合趋势分析',
+                        left: 'center',
+                        textStyle: {
+                            fontSize: 18,
+                            fontWeight: 'bold',
+                            color: '#2c3e50'
+                        }
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        backgroundColor: 'rgba(255,255,255,0.95)',
+                        borderColor: '#ddd',
+                        borderWidth: 1,
+                        textStyle: {
+                            color: '#333'
+                        },
+                        formatter: function(params) {
+                            let result = `<div style="font-weight:bold;margin-bottom:8px;">${params[0].axisValue}</div>`;
+                            params.forEach(param => {
+                                const value = param.value.toLocaleString();
+                                const marker = `<span style="display:inline-block;width:10px;height:10px;background:${param.color};border-radius:50%;margin-right:5px;"></span>`;
+                                result += `${marker}${param.seriesName}: ${value}<br/>`;
+                            });
+                            return result;
+                        }
+                    },
+                    legend: {
+                        data: ['市值', '成本', '组合净值'],
+                        top: 40,
+                        right: '5%',
+                        textStyle: {
+                            fontSize: 12
+                        }
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '8%',
+                        top: '15%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: dates,
+                        axisLabel: {
+                            fontSize: 11,
+                            color: "#666",
+                            rotate: 45
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: "#ddd"
+                            }
+                        },
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    },
+                    yAxis: [{
+                        type: 'value',
+                        name: '金额',
+                        position: 'left',
+                        axisLabel: {
+                            formatter: function(value) {
+                                if (value >= 10000) {
+                                    return (value / 10000).toFixed(1) + '万';
+                                }
+                                return value.toLocaleString();
+                            },
+                            fontSize: 11,
+                            color: "#666"
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: "#ddd"
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: "rgba(200,200,200,0.3)"
+                            }
+                        }
+                    }, {
+                        type: 'value',
+                        name: '组合净值',
+                        position: 'right',
+                        axisLabel: {
+                            formatter: '{value}',
+                            fontSize: 11,
+                            color: "#666"
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: "#ddd"
+                            }
+                        },
+                        splitLine: {
+                            show: false
+                        }
+                    }],
+                    dataZoom: [{
+                        type: 'inside',
+                        start: Math.max(0, (dates.length - 90) / dates.length * 100),
+                        end: 100
+                    }, {
+                        type: 'slider',
+                        show: true,
+                        bottom: '2%',
+                        height: 20,
+                        handleSize: 15,
+                        handleStyle: {
+                            color: '#667eea'
+                        }
+                    }],
+                    series: [{
+                        name: '市值',
+                        type: 'line',
+                        smooth: true,
+                        data: values,
+                        itemStyle: {
+                            color: '#e74c3c'
+                        },
+                        lineStyle: {
+                            width: 2
+                        },
+                        symbol: 'circle',
+                        symbolSize: 4
+                    },
+                    {
+                        name: '成本',
+                        type: 'line',
+                        smooth: true,
+                        data: costs,
+                        itemStyle: {
+                            color: '#3498db'
+                        },
+                        lineStyle: {
+                            width: 2
+                        },
+                        symbol: 'circle',
+                        symbolSize: 4
+                    },
+                    {
+                        name: '组合净值',
+                        type: 'line',
+                        yAxisIndex: 1,
+                        smooth: true,
+                        data: netValues,
+                        itemStyle: {
+                            color: '#27ae60'
+                        },
+                        lineStyle: {
+                            width: 1.5,
+                            type: 'dashed'
+                        },
+                        symbol: 'emptyCircle',
+                        symbolSize: 3
+                    }]
+                };
+
+                myChart.setOption(option);
+                
+                // 窗口大小变化时自动调整图表大小
+                window.addEventListener('resize', function() {
+                    myChart.resize();
+                });
+            })
+            .catch(error => {
+                console.error("Error loading market_trend.json:", error);
+                document.getElementById('trendChart').innerHTML = '<div class="loading"><p style="color:#e74c3c;">数据加载失败，请刷新页面重试</p></div>';
+            });
+    </script>
+</body>
+</html> 
