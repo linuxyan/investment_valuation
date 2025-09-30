@@ -175,5 +175,11 @@ class StockDataProcessor:
         with open(summary_file, 'w', encoding='utf-8') as f:
             json.dump(all_stocks_latest, f, ensure_ascii=False, indent=2)
         
+        # 保存更新时间
+        update_time = {"date":datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+        create_time_file = os.path.join(OUTPUT_JSON_DIR, "last_date.json")
+        with open(create_time_file, 'w', encoding='utf-8') as f:
+            json.dump(update_time, f, ensure_ascii=False, indent=2)
+
         logging.info(f"估值结果已保存到 {OUTPUT_JSON_DIR} 目录")
         logging.info(f"共处理 {len(grouped_results)} 个股票的估值数据，按照CSV文件顺序保存")

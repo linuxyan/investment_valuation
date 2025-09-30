@@ -143,13 +143,12 @@
         <div class="header-container">
             <h2>股票估值表</h2>
             <div class="header-controls">
-                <a href="/investment/portfolio.html" class="info-link">
+                <a href="/position.html" class="info-link">
                     <i class="info-icon">ℹ</i>
-                    <span>P</span>
+                    <span>持仓组合</span>
                 </a>
                 <div class="update-time">
-                    <div>周数据更新时间：<span id="lastUpdateTimeWeek">-</span></div>
-                    <div>日数据更新时间：<span id="lastUpdateTimeDay">-</span></div>
+                    <div>数据更新时间：<span id="lastUpdateTime">-</span></div>
                 </div>
             </div>
         </div>
@@ -241,14 +240,12 @@
         async function loadLastUpdateTime() {
             try {
                 const timestamp = new Date().getTime();
-                const response = await fetch(`/investment/trend_graph/last_date.json?t=${timestamp}`);
+                const response = await fetch(`/data/last_date.json?t=${timestamp}`);
                 const data = await response.json();
-                document.getElementById('lastUpdateTimeWeek').textContent = data.date_w || '-';
-                document.getElementById('lastUpdateTimeDay').textContent = data.date_d || '-';
+                document.getElementById('lastUpdateTime').textContent = data.date || '-';
             } catch (error) {
                 console.error('加载更新时间失败:', error);
-                document.getElementById('lastUpdateTimeWeek').textContent = '-';
-                document.getElementById('lastUpdateTimeDay').textContent = '-';
+                document.getElementById('lastUpdateTime').textContent = '-';
             }
         }
 
