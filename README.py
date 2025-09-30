@@ -78,8 +78,8 @@ def generate_markdown(stats, date):
 
 ## 持仓明细
 
-| 股票代码 | 股票名称 | 持仓数量 | 当前价 | 今日涨跌幅 | 持仓市值 | 持仓占比 | 持仓盈亏 | 盈亏率 |
-|----------|----------|----------|--------|------------|----------|----------|----------|--------|
+| 股票代码 | 股票名称 | 持仓数量 | 当前价 | 持仓市值 | 持仓占比 |
+|----------|----------|----------|--------|----------|----------|
 """
     
     # 添加持仓数据行
@@ -88,17 +88,10 @@ def generate_markdown(stats, date):
         stock_name = position.get('股票名称', '')
         quantity = position.get('持仓数量', 0)
         current_price = position.get('当前价', 0)
-        daily_change = position.get('今日涨跌幅', 0)
         market_value = position.get('持仓市值', 0)
         holding_ratio = position.get('持仓占比', 0)
-        profit = position.get('持仓盈亏', 0)
-        profit_rate = position.get('持仓盈亏率', 0)
         
-        # 确定涨跌幅颜色
-        change_color = "🟢" if daily_change >= 0 else "🔴"
-        profit_color = "🟢" if profit >= 0 else "🔴"
-        
-        markdown += f"| {stock_code} | {stock_name} | {quantity} | {current_price:.2f} | {change_color} {daily_change:.2f}% | {format_number(market_value)} | {holding_ratio:.2f}% | {profit_color} {format_number(profit)} | {profit_rate:.2f}% |\n"
+        markdown += f"| {stock_code} | {stock_name} | {quantity} | {current_price:.2f} | {format_number(market_value)} | {holding_ratio:.2f}% |\n"
     
     # 添加总结
     markdown += f"""
