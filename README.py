@@ -111,7 +111,7 @@ def generate_markdown(stats, date):
 def main():
     """主函数"""
     # 数据文件路径
-    data_file = "frontend/data/current_position.json"
+    data_file = "docs/data/current_position.json"
     
     # 读取数据
     data = read_position_data(data_file)

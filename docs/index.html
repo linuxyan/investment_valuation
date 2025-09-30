@@ -228,7 +228,7 @@
         async function loadStockData() {
             try {
                 const timestamp = new Date().getTime();
-                const response = await fetch(`/data/all_stocks_valuation.json?t=${timestamp}`);
+                const response = await fetch(`/investment_valuation/data/all_stocks_valuation.json?t=${timestamp}`);
                 tableData = await response.json();
                 renderTable(tableData);
                 initSortButtons();
@@ -240,7 +240,7 @@
         async function loadLastUpdateTime() {
             try {
                 const timestamp = new Date().getTime();
-                const response = await fetch(`/data/last_date.json?t=${timestamp}`);
+                const response = await fetch(`/investment_valuation/data/last_date.json?t=${timestamp}`);
                 const data = await response.json();
                 document.getElementById('lastUpdateTime').textContent = data.date || '-';
             } catch (error) {

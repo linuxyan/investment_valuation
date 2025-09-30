@@ -191,7 +191,7 @@
 
         // 首次加载静态持仓数据并构建表格
         function loadStaticPortfolioData() {
-            fetch("/data/current_position.json?cb=" + new Date().getTime())
+            fetch("/investment_valuation/data/current_position.json?cb=" + new Date().getTime())
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById("currentDate").textContent = "(" + data.date + ")";
@@ -510,7 +510,7 @@
     <script src="https://cdn.jsdelivr.net/npm/echarts@latest/dist/echarts.min.js"></script>
     <script>
         // 从 market_trend.json 文件中读取数据，并绘制趋势图
-        fetch("/data/market_trend.json?cb=" + new Date().getTime())
+        fetch("/investment_valuation/data/market_trend.json?cb=" + new Date().getTime())
             .then(response => response.json())
             .then(data => {
                 if (!data || data.length === 0) {
