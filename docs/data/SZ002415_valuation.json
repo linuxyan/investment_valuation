@@ -38,5 +38,25 @@
     "date": "2025-09-30",
     "name": "海康威视",
     "predicted_net_profit_billion": 169.49
+  },
+  {
+    "symbol": "SZ002415",
+    "timestamp": 1759161600000,
+    "current_close": 31.52,
+    "current_pe": 22.9804,
+    "avg_pe_5y": 25.83,
+    "std_pe_5y": 6.75,
+    "pe_percentile_90": 37.84,
+    "reasonable_pe": 22.46,
+    "pe_valuation": 1.02,
+    "net_profit_valuation": 0.95,
+    "pe_buy_point": 15.4,
+    "profit_buy_point": 16.62,
+    "predicted_net_profit": 16949000000.0,
+    "profit_date": "2025-10-01",
+    "calculation_date": "2025-10-01 16:38:47",
+    "date": "2025-09-30",
+    "name": "海康威视",
+    "predicted_net_profit_billion": 169.49
   }
 ]

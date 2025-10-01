@@ -38,5 +38,25 @@
     "date": "2025-09-30",
     "name": "港交所",
     "predicted_net_profit_billion": 165.39
+  },
+  {
+    "symbol": "HK00388",
+    "timestamp": 1759161600000,
+    "current_close": 442.0,
+    "current_pe": 36.2849,
+    "avg_pe_5y": 38.05,
+    "std_pe_5y": 8.08,
+    "pe_percentile_90": 46.88,
+    "reasonable_pe": 34.01,
+    "pe_valuation": 1.07,
+    "net_profit_valuation": 1.25,
+    "pe_buy_point": 207.16,
+    "profit_buy_point": 177.48,
+    "predicted_net_profit": 16539000000.0,
+    "profit_date": "2025-10-01",
+    "calculation_date": "2025-10-01 16:38:47",
+    "date": "2025-09-30",
+    "name": "港交所",
+    "predicted_net_profit_billion": 165.39
   }
 ]

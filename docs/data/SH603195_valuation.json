@@ -38,5 +38,25 @@
     "date": "2025-09-30",
     "name": "公牛集团",
     "predicted_net_profit_billion": 48.84
+  },
+  {
+    "symbol": "SH603195",
+    "timestamp": 1759161600000,
+    "current_close": 44.66,
+    "current_pe": 19.7336,
+    "avg_pe_5y": 30.88,
+    "std_pe_5y": 9.97,
+    "pe_percentile_90": 47.88,
+    "reasonable_pe": 25.89,
+    "pe_valuation": 0.76,
+    "net_profit_valuation": 0.8,
+    "pe_buy_point": 29.3,
+    "profit_buy_point": 27.97,
+    "predicted_net_profit": 4884000000.0,
+    "profit_date": "2025-10-01",
+    "calculation_date": "2025-10-01 16:38:47",
+    "date": "2025-09-30",
+    "name": "公牛集团",
+    "predicted_net_profit_billion": 48.84
   }
 ]
