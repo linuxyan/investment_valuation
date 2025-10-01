@@ -44,7 +44,7 @@ FIVE_YEARS_TRADING_DAYS = 5 * TRADING_DAYS_PER_YEAR
 TEN_YEARS_TRADING_DAYS = 10 * TRADING_DAYS_PER_YEAR
 
 # 文件路径配置
-STOCKS_DATA_FILE = os.path.join('docs', 'stocks_data.csv')
-POSITION_DATA_FILE = os.path.join('docs', 'position.csv')
-TRANSFER_DATA_FILE = os.path.join('docs', 'transfer.csv')
+STOCKS_DATA_FILE = os.path.join('data', 'stocks_data.csv')
+POSITION_DATA_FILE = os.path.join('data', 'position.csv')
+TRANSFER_DATA_FILE = os.path.join('data', 'transfer.csv')
 OUTPUT_JSON_DIR = os.path.join('docs', 'data')
