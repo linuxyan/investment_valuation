@@ -58,5 +58,25 @@
     "date": "2025-09-30",
     "name": "片仔癀",
     "predicted_net_profit_billion": 37.36
+  },
+  {
+    "symbol": "SH600436",
+    "timestamp": 1759161600000,
+    "current_close": 196.79,
+    "current_pe": 44.0092,
+    "avg_pe_5y": 71.34,
+    "std_pe_5y": 27.74,
+    "pe_percentile_90": 97.57,
+    "reasonable_pe": 57.47,
+    "pe_valuation": 0.77,
+    "net_profit_valuation": 0.69,
+    "pe_buy_point": 128.49,
+    "profit_buy_point": 142.35,
+    "predicted_net_profit": 3736000000.0,
+    "profit_date": "2025-10-02",
+    "calculation_date": "2025-10-02 16:33:50",
+    "date": "2025-09-30",
+    "name": "片仔癀",
+    "predicted_net_profit_billion": 37.36
   }
 ]
