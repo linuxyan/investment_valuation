@@ -98,5 +98,25 @@
     "date": "2025-09-30",
     "name": "苏泊尔",
     "predicted_net_profit_billion": 25.04
+  },
+  {
+    "symbol": "SZ002032",
+    "timestamp": 1759161600000,
+    "current_close": 47.75,
+    "current_pe": 17.0539,
+    "avg_pe_5y": 22.35,
+    "std_pe_5y": 5.44,
+    "pe_percentile_90": 33.48,
+    "reasonable_pe": 19.64,
+    "pe_valuation": 0.87,
+    "net_profit_valuation": 0.97,
+    "pe_buy_point": 32.99,
+    "profit_buy_point": 29.45,
+    "predicted_net_profit": 2503500000.0,
+    "profit_date": "2025-10-06",
+    "calculation_date": "2025-10-06 16:35:03",
+    "date": "2025-09-30",
+    "name": "苏泊尔",
+    "predicted_net_profit_billion": 25.04
   }
 ]
