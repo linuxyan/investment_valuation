@@ -118,5 +118,25 @@
     "date": "2025-09-30",
     "name": "美的集团",
     "predicted_net_profit_billion": 510.64
+  },
+  {
+    "symbol": "SZ000333",
+    "timestamp": 1759161600000,
+    "current_close": 72.66,
+    "current_pe": 12.7606,
+    "avg_pe_5y": 15.24,
+    "std_pe_5y": 3.82,
+    "pe_percentile_90": 20.47,
+    "reasonable_pe": 13.33,
+    "pe_valuation": 0.96,
+    "net_profit_valuation": 1.03,
+    "pe_buy_point": 45.54,
+    "profit_buy_point": 42.52,
+    "predicted_net_profit": 51064500000.0,
+    "profit_date": "2025-10-07",
+    "calculation_date": "2025-10-07 16:34:59",
+    "date": "2025-09-30",
+    "name": "美的集团",
+    "predicted_net_profit_billion": 510.64
   }
 ]
