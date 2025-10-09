@@ -158,5 +158,25 @@
     "date": "2025-09-30",
     "name": "青岛啤酒",
     "predicted_net_profit_billion": 53.12
+  },
+  {
+    "symbol": "SH600600",
+    "timestamp": 1759161600000,
+    "current_close": 65.92,
+    "current_pe": 19.517,
+    "avg_pe_5y": 35.07,
+    "std_pe_5y": 11.82,
+    "pe_percentile_90": 49.27,
+    "reasonable_pe": 29.16,
+    "pe_valuation": 0.67,
+    "net_profit_valuation": 0.73,
+    "pe_buy_point": 49.24,
+    "profit_buy_point": 45.36,
+    "predicted_net_profit": 5305500000.0,
+    "profit_date": "2025-10-09",
+    "calculation_date": "2025-10-09 16:33:37",
+    "date": "2025-09-30",
+    "name": "青岛啤酒",
+    "predicted_net_profit_billion": 53.05
   }
 ]

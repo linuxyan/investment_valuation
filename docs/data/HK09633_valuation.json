@@ -158,5 +158,25 @@
     "date": "2025-10-08",
     "name": "农夫山泉",
     "predicted_net_profit_billion": 192.73
+  },
+  {
+    "symbol": "HK09633",
+    "timestamp": 1759852800000,
+    "current_close": 53.0,
+    "current_pe": 40.9976,
+    "avg_pe_5y": 53.04,
+    "std_pe_5y": 21.35,
+    "pe_percentile_90": 76.77,
+    "reasonable_pe": 42.36,
+    "pe_valuation": 0.97,
+    "net_profit_valuation": 0.91,
+    "pe_buy_point": 27.38,
+    "profit_buy_point": 29.04,
+    "predicted_net_profit": 19273000000.0,
+    "profit_date": "2025-10-09",
+    "calculation_date": "2025-10-09 16:33:37",
+    "date": "2025-10-08",
+    "name": "农夫山泉",
+    "predicted_net_profit_billion": 192.73
   }
 ]
