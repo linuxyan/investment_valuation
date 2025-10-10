@@ -178,5 +178,25 @@
     "date": "2025-09-30",
     "name": "东鹏饮料",
     "predicted_net_profit_billion": 64.21
+  },
+  {
+    "symbol": "SH605499",
+    "timestamp": 1759161600000,
+    "current_close": 303.8,
+    "current_pe": 39.7847,
+    "avg_pe_5y": 47.72,
+    "std_pe_5y": 13.25,
+    "pe_percentile_90": 66.62,
+    "reasonable_pe": 41.09,
+    "pe_valuation": 0.97,
+    "net_profit_valuation": 0.75,
+    "pe_buy_point": 156.89,
+    "profit_buy_point": 202.88,
+    "predicted_net_profit": 6418500000.0,
+    "profit_date": "2025-10-10",
+    "calculation_date": "2025-10-10 16:33:14",
+    "date": "2025-09-30",
+    "name": "东鹏饮料",
+    "predicted_net_profit_billion": 64.19
   }
 ]
