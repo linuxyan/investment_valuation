@@ -218,5 +218,25 @@
     "date": "2025-09-30",
     "name": "恒瑞医药",
     "predicted_net_profit_billion": 101.61
+  },
+  {
+    "symbol": "SH600276",
+    "timestamp": 1759161600000,
+    "current_close": 71.55,
+    "current_pe": 64.5682,
+    "avg_pe_5y": 64.14,
+    "std_pe_5y": 12.43,
+    "pe_percentile_90": 79.47,
+    "reasonable_pe": 57.92,
+    "pe_valuation": 1.11,
+    "net_profit_valuation": 1.01,
+    "pe_buy_point": 32.09,
+    "profit_buy_point": 35.47,
+    "predicted_net_profit": 10161500000.0,
+    "profit_date": "2025-10-14",
+    "calculation_date": "2025-10-14 16:32:25",
+    "date": "2025-09-30",
+    "name": "恒瑞医药",
+    "predicted_net_profit_billion": 101.61
   }
 ]
