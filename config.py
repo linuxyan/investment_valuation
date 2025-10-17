@@ -35,7 +35,7 @@ HEADERS = {
     'Accept-Encoding': 'gzip, deflate, br',
     'Connection': 'keep-alive',
     'Referer': 'https://xueqiu.com/',
-    'Cookie': 'u=1986409130; xqat=583cb4adf8795f8460bd283150f78522e2f6e03c;'  # 需要用户自行配置
+    'Cookie': 'u=1986409130; xqat=b1ec0c3eccabcde8fbbd29b09396fc5f2fea6379;'  # 需要用户自行配置
 }
 
 # 时间配置
