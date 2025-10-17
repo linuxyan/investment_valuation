@@ -278,5 +278,25 @@
     "date": "2025-09-30",
     "name": "迈瑞医疗",
     "predicted_net_profit_billion": 146.97
+  },
+  {
+    "symbol": "SZ300760",
+    "timestamp": 1759161600000,
+    "current_close": 245.69,
+    "current_pe": 32.4616,
+    "avg_pe_5y": 43.14,
+    "std_pe_5y": 17.66,
+    "pe_percentile_90": 70.12,
+    "reasonable_pe": 34.3,
+    "pe_valuation": 0.95,
+    "net_profit_valuation": 0.74,
+    "pe_buy_point": 129.82,
+    "profit_buy_point": 166.33,
+    "predicted_net_profit": 14696500000.0,
+    "profit_date": "2025-10-17",
+    "calculation_date": "2025-10-17 16:34:14",
+    "date": "2025-09-30",
+    "name": "迈瑞医疗",
+    "predicted_net_profit_billion": 146.97
   }
 ]

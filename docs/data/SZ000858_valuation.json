@@ -278,5 +278,25 @@
     "date": "2025-09-30",
     "name": "五粮液",
     "predicted_net_profit_billion": 296.38
+  },
+  {
+    "symbol": "SZ000858",
+    "timestamp": 1759161600000,
+    "current_close": 121.48,
+    "current_pe": 14.604,
+    "avg_pe_5y": 28.43,
+    "std_pe_5y": 13.25,
+    "pe_percentile_90": 42.45,
+    "reasonable_pe": 21.81,
+    "pe_valuation": 0.67,
+    "net_profit_valuation": 0.91,
+    "pe_buy_point": 90.69,
+    "profit_buy_point": 66.6,
+    "predicted_net_profit": 29638500000.0,
+    "profit_date": "2025-10-17",
+    "calculation_date": "2025-10-17 16:34:14",
+    "date": "2025-09-30",
+    "name": "五粮液",
+    "predicted_net_profit_billion": 296.38
   }
 ]
