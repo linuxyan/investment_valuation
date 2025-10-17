@@ -148,7 +148,7 @@ class StockDataFetcher:
                 self.save_to_database(stock_data)
             else:
                 logging.warning(f"获取 {symbol} 的数据失败")
-                sys.exit()
+                sys.exit(1)
                 
             # 添加延迟避免请求过快
             if i < total_symbols:
@@ -175,7 +175,7 @@ class StockDataFetcher:
                 self.db.save_profit_forecast(result[0], result[1], result[2], forecast_date)
             else:
                 logging.warning(f"获取 {symbol} 的业绩预测数据失败")
-                sys.exit()
+                sys.exit(1)
                 
             # 添加延迟避免请求过快
             if i < total_symbols:

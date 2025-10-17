@@ -129,7 +129,7 @@ class StockDatabase:
         except Exception as e:
             logging.error(f"保存估值结果失败: {e}")
             conn.rollback()
-            sys.exit()
+            sys.exit(1)
         finally:
             conn.close()
 
