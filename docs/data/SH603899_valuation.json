@@ -298,5 +298,25 @@
     "date": "2025-09-30",
     "name": "晨光股份",
     "predicted_net_profit_billion": 17.86
+  },
+  {
+    "symbol": "SH603899",
+    "timestamp": 1760630400000,
+    "current_close": 27.44,
+    "current_pe": 19.1437,
+    "avg_pe_5y": 33.63,
+    "std_pe_5y": 14.98,
+    "pe_percentile_90": 52.84,
+    "reasonable_pe": 26.15,
+    "pe_valuation": 0.73,
+    "net_profit_valuation": 0.68,
+    "pe_buy_point": 18.74,
+    "profit_buy_point": 20.28,
+    "predicted_net_profit": 1785500000.0,
+    "profit_date": "2025-10-17",
+    "calculation_date": "2025-10-17 18:31:30",
+    "date": "2025-10-17",
+    "name": "晨光股份",
+    "predicted_net_profit_billion": 17.86
   }
 ]

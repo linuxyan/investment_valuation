@@ -298,5 +298,25 @@
     "date": "2025-09-30",
     "name": "双汇发展",
     "predicted_net_profit_billion": 54.48
+  },
+  {
+    "symbol": "SZ000895",
+    "timestamp": 1760630400000,
+    "current_close": 25.36,
+    "current_pe": 17.5172,
+    "avg_pe_5y": 19.09,
+    "std_pe_5y": 3.67,
+    "pe_percentile_90": 22.8,
+    "reasonable_pe": 17.26,
+    "pe_valuation": 1.02,
+    "net_profit_valuation": 1.17,
+    "pe_buy_point": 14.99,
+    "profit_buy_point": 13.02,
+    "predicted_net_profit": 5447500000.0,
+    "profit_date": "2025-10-17",
+    "calculation_date": "2025-10-17 18:31:30",
+    "date": "2025-10-17",
+    "name": "双汇发展",
+    "predicted_net_profit_billion": 54.48
   }
 ]

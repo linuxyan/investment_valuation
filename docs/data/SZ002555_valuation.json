@@ -298,5 +298,25 @@
     "date": "2025-09-30",
     "name": "三七互娱",
     "predicted_net_profit_billion": 32.94
+  },
+  {
+    "symbol": "SZ002555",
+    "timestamp": 1760630400000,
+    "current_close": 19.37,
+    "current_pe": 15.2569,
+    "avg_pe_5y": 17.59,
+    "std_pe_5y": 5.33,
+    "pe_percentile_90": 84.96,
+    "reasonable_pe": 13.59,
+    "pe_valuation": 1.12,
+    "net_profit_valuation": 1.2,
+    "pe_buy_point": 10.35,
+    "profit_buy_point": 9.71,
+    "predicted_net_profit": 3293500000.0,
+    "profit_date": "2025-10-17",
+    "calculation_date": "2025-10-17 18:31:30",
+    "date": "2025-10-17",
+    "name": "三七互娱",
+    "predicted_net_profit_billion": 32.94
   }
 ]

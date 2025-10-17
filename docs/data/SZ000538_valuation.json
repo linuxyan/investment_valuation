@@ -298,5 +298,25 @@
     "date": "2025-09-30",
     "name": "云南白药",
     "predicted_net_profit_billion": 61.69
+  },
+  {
+    "symbol": "SZ000538",
+    "timestamp": 1760630400000,
+    "current_close": 57.06,
+    "current_pe": 19.6034,
+    "avg_pe_5y": 27.72,
+    "std_pe_5y": 6.83,
+    "pe_percentile_90": 34.96,
+    "reasonable_pe": 24.3,
+    "pe_valuation": 0.81,
+    "net_profit_valuation": 0.85,
+    "pe_buy_point": 35.37,
+    "profit_buy_point": 33.61,
+    "predicted_net_profit": 6168500000.0,
+    "profit_date": "2025-10-17",
+    "calculation_date": "2025-10-17 18:31:30",
+    "date": "2025-10-17",
+    "name": "云南白药",
+    "predicted_net_profit_billion": 61.69
   }
 ]

@@ -298,5 +298,25 @@
     "date": "2025-09-30",
     "name": "药明康德",
     "predicted_net_profit_billion": 154.23
+  },
+  {
+    "symbol": "SH603259",
+    "timestamp": 1760630400000,
+    "current_close": 96.6,
+    "current_pe": 20.9297,
+    "avg_pe_5y": 48.1,
+    "std_pe_5y": 37.78,
+    "pe_percentile_90": 105.85,
+    "reasonable_pe": 29.21,
+    "pe_valuation": 0.72,
+    "net_profit_valuation": 0.8,
+    "pe_buy_point": 67.42,
+    "profit_buy_point": 60.4,
+    "predicted_net_profit": 15423000000.0,
+    "profit_date": "2025-10-17",
+    "calculation_date": "2025-10-17 18:31:30",
+    "date": "2025-10-17",
+    "name": "药明康德",
+    "predicted_net_profit_billion": 154.23
   }
 ]

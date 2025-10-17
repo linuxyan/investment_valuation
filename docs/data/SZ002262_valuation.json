@@ -298,5 +298,25 @@
     "date": "2025-09-30",
     "name": "恩华药业",
     "predicted_net_profit_billion": 17.34
+  },
+  {
+    "symbol": "SZ002262",
+    "timestamp": 1760630400000,
+    "current_close": 25.6,
+    "current_pe": 21.4001,
+    "avg_pe_5y": 21.92,
+    "std_pe_5y": 4.04,
+    "pe_percentile_90": 44.28,
+    "reasonable_pe": 19.9,
+    "pe_valuation": 1.08,
+    "net_profit_valuation": 0.94,
+    "pe_buy_point": 14.28,
+    "profit_buy_point": 16.31,
+    "predicted_net_profit": 1734500000.0,
+    "profit_date": "2025-10-17",
+    "calculation_date": "2025-10-17 18:31:30",
+    "date": "2025-10-17",
+    "name": "恩华药业",
+    "predicted_net_profit_billion": 17.34
   }
 ]
